@@ -16,13 +16,16 @@ func main() {
 	// and log the requests to the terminal.
 	app.Use(recover.New())
 	app.Use(logger.New())
+	app.RegisterView(iris.HTML("./public", ".html"))
 
 	// Method:   GET
 	// Resource: http://localhost:8080
 	app.Handle("GET", "/", func(ctx iris.Context) {
-		ctx.HTML("<h1>Welcome</h1>")
+		//ctx.HTML("<h1>Welcome</h1>")
+		ctx.View("index.html")
 	})
 	
-	app.Run(iris.Addr(":8080"), iris.WithoutServerError(iris.ErrServerClosed))
     //cmd.Execute()
+
+	app.Run(iris.Addr(":8080"), iris.WithoutServerError(iris.ErrServerClosed))
 }
